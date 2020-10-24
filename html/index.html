@@ -1,0 +1,23 @@
+<html>
+<body>
+<div>Insert the text to be sent</div>
+<textarea id="inputTextarea" rows="10" cols="70"></textarea>
+<p><button onclick="sendText()">Send text</button></p>
+</body>
+</html>
+
+<script>
+
+async function sendText()
+{
+    var data = {text: document.getElementById("inputTextarea").value}
+    const resp = await fetch("https://us-central1-weebah-com.cloudfunctions.net/receive_text",{
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify(data)
+    });
+
+    console.log(await resp.text());
+}
+
+</script>
