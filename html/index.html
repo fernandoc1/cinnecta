@@ -1,23 +1,34 @@
 <html>
 <body>
-<div>Insert the text to be sent</div>
-<textarea id="inputTextarea" rows="10" cols="70"></textarea>
-<p><button onclick="sendText()">Send text</button></p>
+<input type="file" id="fileUpload" multiple/>
+<p><button onclick="sendFiles()">Send files</button></p>
 </body>
 </html>
 
 <script>
 
-async function sendText()
+async function sendFiles()
 {
-    var data = {text: document.getElementById("inputTextarea").value}
+    var formData = new FormData();
+    const files = document.getElementById("fileUpload").files;
+    for(i in files)
+    {
+        console.log(files[i]);
+        formData.append('file'+i, files[i]);
+    }
+    console.log(formData);
+    const resp = await fetch("http://localhost:5000/receive_text",{
+        method: 'POST',
+        body: formData
+    });
+    /*
     const resp = await fetch("https://us-central1-weebah-com.cloudfunctions.net/receive_text",{
         method: 'POST',
         headers: {'Content-Type': 'application/json'},
         body: JSON.stringify(data)
     });
-
     console.log(await resp.text());
+*/
 }
 
 </script>
