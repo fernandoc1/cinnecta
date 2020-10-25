@@ -6,13 +6,16 @@ def getTextCollection():
     db = db_connector.getDBConnection()
     return db["text_collection"].find()
 
-def getFullDict():
+def getFullDict(dictEntry):
     textCollection = getTextCollection()
-    fullDict = []
+    fullDict = dict()
     for document in textCollection:
-        for entry in document["text_dict"]:
-            fullDict.append(entry)
-    return fullDict
+        for entry in document[dictEntry]:
+            fullDict[entry] = 1
+    entryList = []
+    for entry in fullDict:
+        entryList.append(entry)
+    return entryList
 
 def getData():
     db = db_connector.getDBConnection()
@@ -20,5 +23,6 @@ def getData():
     for document in cursor:
         print(document["title"])
 
-print(getFullDict())
+#print(getFullDict("text_dict"))
+print(getFullDict("text_2gram_dict"))
 
