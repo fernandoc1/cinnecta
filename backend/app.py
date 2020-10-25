@@ -7,9 +7,8 @@ import pprint
 import receive_text
 
 app = flask.Flask(__name__, static_url_path='', static_folder='../html/')
-app.config['UPLOAD_FOLDER'] = "/tmp/upload"
 
-@app.route('/receive_text')
+@app.route('/receive_text', methods=['GET', 'POST'])
 def receiveText():
     print(flask.request)
     return receive_text.receive_text(flask.request)
