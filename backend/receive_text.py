@@ -1,13 +1,13 @@
 import flask
-import pymongo
 import pprint
+import db_connector
 
 def filterString(s):
     return s.replace('.', '').replace(',', '').lower()
 
 def receive_text(request):
-    client = pymongo.MongoClient("mongodb+srv://cinnecta:9041cinnecta@cluster0.79yxn.mongodb.net/weebah?retryWrites=true&w=majority")
-    db = client.test
+    db = db_connector.getDBConnection()
+    
     textCollection = db["text_collection"]
     
     jsonDict = request.get_json()
