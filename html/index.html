@@ -1,31 +1,18 @@
-<html>
-<body>
-<div>
- <p>Text title</p>
- <p><input id="titleInput"></input></p>
+<html style="width:100%; height:100%;">
+<body style="width:100%; height:100%; margin:0;">
+<div style="height:18px;">
+ <p>Document analysis - Fernando Carvalho</p>
 </div>
-<div>Insert the text to be sent</div>
-<textarea id="inputTextarea" rows="10" cols="70"></textarea>
-<p><button onclick="sendText()">Send text</button></p>
+<div style="width:100%; height:25px;">
+ <a href="#" onclick="changeIframe('send_text.html')">Send text</a>
+ <a href="#" onclick="changeIframe('queries.html')">Query info</a>
+</div>
+<iframe id="mainIframe" src="send_text.html" style="width:100%; height:calc(100% - 25px - 18px); border:none;"></iframe>
 </body>
 </html>
-
 <script>
-
-async function sendText()
+function changeIframe(link)
 {
-    var data = {
-        title: document.getElementById("titleInput").value,
-        text: document.getElementById("inputTextarea").value
-    }
-    //const resp = await fetch("https://us-central1-weebah-com.cloudfunctions.net/receive_text",{
-    const resp = await fetch("/receive_text",{
-        method: 'POST',
-        headers: {'Content-Type': 'application/json'},
-        body: JSON.stringify(data)
-    });
-
-    console.log(await resp.text());
+    document.getElementById("mainIframe").src = link;
 }
-
 </script>
