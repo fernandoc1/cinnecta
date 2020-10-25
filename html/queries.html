@@ -2,31 +2,28 @@
 <body>
 <div>
 <p>
- <button onclick="sendText()">full_text_dict</button>
- <button onclick="sendText()">full_text_2gram_dict</button>
- <button onclick="sendText()">n_dict_text_dict</button>
- <button onclick="sendText()">n_dict_text_2gram_dict</button>
+ <button onclick="getTextInfo('full_text_dict')">full_text_dict</button>
+ <button onclick="getTextInfo('full_text_2gram_dict')">full_text_2gram_dict</button>
+ <button onclick="getTextInfo('n_dict_text_dict')">n_dict_text_dict</button>
+ <button onclick="getTextInfo('n_dict_text_2gram_dict')">n_dict_text_2gram_dict</button>
 </p>
+<p id="statusP"></p>
 <p><pre id="outputPre"></pre></p>
 </body>
 </html>
 
 <script>
 
-async function sendText()
+async function getTextInfo(option)
 {
-    var data = {
-        title: document.getElementById("titleInput").value,
-        text: document.getElementById("inputTextarea").value
-    }
+    document.getElementById("statusP").innerHTML = "Loading request...";
     //const resp = await fetch("https://us-central1-weebah-com.cloudfunctions.net/receive_text",{
-    const resp = await fetch("/receive_text",{
-        method: 'POST',
+    const resp = await fetch("/query_text?option="+option,{
+        method: 'GET',
         headers: {'Content-Type': 'application/json'},
-        body: JSON.stringify(data)
     });
-
-    console.log(await resp.text());
+    document.getElementById("statusP").innerHTML = "Done!";
+    document.getElementById('outputPre').innerHTML = JSON.stringify(await resp.json(), null, 2);
 }
 
 </script>
