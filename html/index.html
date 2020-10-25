@@ -6,13 +6,27 @@
 <div style="width:100%; height:25px;">
  <a href="#" onclick="changeIframe('send_text.html')">Send text</a>
  <a href="#" onclick="changeIframe('queries.html')">Query info</a>
+ <button id="clearDatabaseButton" onclick="clearDatabase()">Clear database</button>
 </div>
 <iframe id="mainIframe" src="send_text.html" style="width:100%; height:calc(100% - 25px - 18px); border:none;"></iframe>
 </body>
 </html>
+
 <script>
+
 function changeIframe(link)
 {
     document.getElementById("mainIframe").src = link;
 }
+
+async function clearDatabase()
+{
+    document.getElementById("clearDatabaseButton").disabled = true;
+    const resp = await fetch("/clear_database", {
+        method: 'GET',
+        headers: {'Content-Type': 'application/json'},
+    });
+    document.getElementById("clearDatabaseButton").disabled = false;
+}
+
 </script>
