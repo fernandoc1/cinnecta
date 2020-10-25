@@ -1,5 +1,9 @@
 <html>
 <body>
+<div>
+ <p>Text title</p>
+ <p><input id="titleInput"></input></p>
+</div>
 <div>Insert the text to be sent</div>
 <textarea id="inputTextarea" rows="10" cols="70"></textarea>
 <p><button onclick="sendText()">Send text</button></p>
@@ -10,7 +14,10 @@
 
 async function sendText()
 {
-    var data = {text: document.getElementById("inputTextarea").value}
+    var data = {
+        title: document.getElementById("titleInput").value,
+        text: document.getElementById("inputTextarea").value
+    }
     //const resp = await fetch("https://us-central1-weebah-com.cloudfunctions.net/receive_text",{
     const resp = await fetch("/receive_text",{
         method: 'POST',
