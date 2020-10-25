@@ -17,12 +17,24 @@ def getFullDict(dictEntry):
             else:
                 fullDict[entry] = currentDocument[entry]
     entryList = []
-    amountList = []
     for entry in fullDict:
         entryList.append(entry)
-        amountList.append(fullDict[entry])
-    return entryList, amountList
+    return entryList
 
-print(getFullDict("text_dict"))
+def getNDict(dictEntry):
+    textCollection = getTextCollection()
+    documentDict = dict()
+    for document in textCollection:
+        currentDocument = document[dictEntry]
+        wordList = []
+        amountList = []
+        for entry in currentDocument:
+            wordList.append(entry)
+            amountList.append(currentDocument[entry])
+        documentDict[document["title"]] = [wordList, amountList]
+    return documentDict 
+
+print(getNDict("text_dict"))
+#print(getFullDict("text_dict"))
 #print(getFullDict("text_2gram_dict"))
 
