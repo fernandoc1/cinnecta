@@ -5,6 +5,7 @@ import pprint
 
 #Code that is going to Google Cloud
 import receive_text
+import query_text
 
 app = flask.Flask(__name__, static_url_path='', static_folder='../html/')
 
@@ -12,5 +13,10 @@ app = flask.Flask(__name__, static_url_path='', static_folder='../html/')
 def receiveText():
     print(flask.request)
     return receive_text.receive_text(flask.request)
+
+@app.route('/query_text', methods=['GET', 'POST'])
+def queryText():
+    print(flask.request)
+    return query_text.query_text(flask.request)
 
 app.run(debug=True, port=5000) #run app in debug mode on port 5000
