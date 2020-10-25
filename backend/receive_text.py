@@ -3,7 +3,7 @@ import pprint
 import db_connector
 
 def filterString(s):
-    return s.replace('.', '').replace(',', '').lower()
+    return s.lower().replace('.', '').replace(',', '').replace('-', ' ')
 
 def receive_text(request):
     db = db_connector.getDBConnection()
@@ -15,16 +15,15 @@ def receive_text(request):
 
     textDict = dict()
     text2GramDict = dict()
-    tokens = text.split()
+    tokens = filterString(text).split()
     for i, tok in enumerate(tokens):
-        tok = filterString(tok) 
         if tok in textDict:
             textDict[tok] += 1
         else:
             textDict[tok] = 1
         if (i+1) == len(tokens):
             continue
-        tok2 = filterString(tokens[i+1])
+        tok2 = tokens[i+1]
         entry2Gram = tok + " " + tok2
         if entry2Gram in text2GramDict:
             text2GramDict[entry2Gram] += 1
