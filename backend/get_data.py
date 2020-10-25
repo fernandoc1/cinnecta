@@ -10,19 +10,19 @@ def getFullDict(dictEntry):
     textCollection = getTextCollection()
     fullDict = dict()
     for document in textCollection:
-        for entry in document[dictEntry]:
-            fullDict[entry] = 1
+        currentDocument = document[dictEntry]
+        for entry in currentDocument:
+            if entry in fullDict:
+                fullDict[entry] += currentDocument[entry]
+            else:
+                fullDict[entry] = currentDocument[entry]
     entryList = []
+    amountList = []
     for entry in fullDict:
         entryList.append(entry)
-    return entryList
+        amountList.append(fullDict[entry])
+    return entryList, amountList
 
-def getData():
-    db = db_connector.getDBConnection()
-    cursor = db["text_collection"].find()
-    for document in cursor:
-        print(document["title"])
-
-#print(getFullDict("text_dict"))
-print(getFullDict("text_2gram_dict"))
+print(getFullDict("text_dict"))
+#print(getFullDict("text_2gram_dict"))
 
