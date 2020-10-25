@@ -5,14 +5,23 @@ def receive_text(request):
     text = jsonDict['text']
 
     textDict = dict()
+    text2GramDict = dict()
     tokens = text.split()
-    for tok in tokens:
+    for i, tok in enumerate(tokens):
         if tok in textDict:
             textDict[tok] += 1
         else:
             textDict[tok] = 1
+        if (i+1) == len(tokens):
+            continue
+        entry2Gram = tokens[i] + " " + tokens[i+1]
+        if entry2Gram in text2GramDict:
+            text2GramDict[entry2Gram] += 1
+        else:
+            text2GramDict[entry2Gram] = 1
 
-    #print(textDict)
+    print(textDict)
+    print(text2GramDict)
 
     response = flask.Response('{"response": "ok"}')
     response.headers['Access-Control-Allow-Origin'] = '*'
