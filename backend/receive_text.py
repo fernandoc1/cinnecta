@@ -2,6 +2,9 @@ import flask
 import pymongo
 import pprint
 
+def filterString(s):
+    return s.replace('.', '').replace(',', '').lower()
+
 def receive_text(request):
     client = pymongo.MongoClient("mongodb+srv://cinnecta:9041cinnecta@cluster0.79yxn.mongodb.net/weebah?retryWrites=true&w=majority")
     db = client.test
@@ -14,14 +17,14 @@ def receive_text(request):
     text2GramDict = dict()
     tokens = text.split()
     for i, tok in enumerate(tokens):
-        tok = tok.replace('.', '').replace(',', '').lower()
+        tok = filterString(tok) 
         if tok in textDict:
             textDict[tok] += 1
         else:
             textDict[tok] = 1
         if (i+1) == len(tokens):
             continue
-        tok2 = tokens[i+1].replace('.', '').replace(',', '').lower()
+        tok2 = filterString(tokens[i+1])
         entry2Gram = tok + " " + tok2
         if entry2Gram in text2GramDict:
             text2GramDict[entry2Gram] += 1
