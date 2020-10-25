@@ -34,7 +34,7 @@ def getNDict(dictEntry):
         documentDict[document["title"]] = [wordList, amountList]
     return documentDict 
 
-print(getNDict("text_dict"))
+#print(getNDict("text_dict"))
 #print(getFullDict("text_dict"))
 #print(getFullDict("text_2gram_dict"))
 
