@@ -6,7 +6,7 @@
 </div>
 <div>Insert the text to be sent</div>
 <textarea id="inputTextarea" rows="10" cols="70"></textarea>
-<p><button onclick="sendText()">Send text</button></p>
+<p><button id="sendTextButton" onclick="sendText()">Send text</button></p>
 </body>
 </html>
 
@@ -14,6 +14,7 @@
 
 async function sendText()
 {
+    document.getElementById("sendTextButton").disabled = true;
     var data = {
         title: document.getElementById("titleInput").value,
         text: document.getElementById("inputTextarea").value
@@ -25,6 +26,7 @@ async function sendText()
         body: JSON.stringify(data)
     });
 
+    document.getElementById("sendTextButton").innerHTML = "Text sent!";
     console.log(await resp.text());
 }
 
